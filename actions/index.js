@@ -1,4 +1,4 @@
-import { initDeck } from "../utils/api";
+import { getDecks, initDeck } from "../utils/api";
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
@@ -20,7 +20,8 @@ export function addDeck (deck){
 
 export function initializeDeck(){
     return (dispatch) => {
-        return initDeck().then(({decks}) => {
+        initDeck()
+        return getDecks().then(({decks}) => {
             dispatch(receiveDecks(decks))
         })
     }
