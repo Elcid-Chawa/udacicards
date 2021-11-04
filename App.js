@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import Reac, {Component } from 'react';
+import React, {Component } from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
-import { connect, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,8 +9,11 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import DeckListView from './component/DeckListView';
 import NewDeck from './component/NewDeck';
 import DeckView from './component/DeckView';
+import NewQuestion from './component/NewQuestion'
 import { createStore } from 'redux';
 import reducer from './reducers';
+import middleware from './middleware';
+import QuizView from './component/QuizView';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,16 +21,30 @@ const Tabs = Platform.OS === 'ios'
   ? createBottomTabNavigator()
   : createMaterialTopTabNavigator()
 
-class  App extends Component() {
+class  App extends Component {
 
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={createStore(reducer, middleware)}>
         <NavigationContainer>
-          <Tabs.Navigator>
-            <Tabs.Screen name="Decks" component={DeckListView} />
-            <Tabs.Screen name="Add Deck" component={NewDeck} />
-          </Tabs.Navigator>
+          <Stack.Navigator
+            initialRouteName="Decks"
+            screenOptions={() => ({
+              headerStyle: {
+                backgroundColor: 'tomato',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            })} 
+          >
+            <Stack.Screen name="Decks" component={DeckListView} />
+            <Stack.Screen name="Deck" component={DeckView} />
+            <Stack.Screen name="Add Deck" component={NewDeck} />
+            <Stack.Screen name="Quiz" component={QuizView} />
+            <Stack.Screen name = "Add Question" component={NewQuestion} />
+          </Stack.Navigator>
         </NavigationContainer>
       </Provider>
       
@@ -44,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(App)
+export default App;
