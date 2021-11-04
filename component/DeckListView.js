@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DeckView from './DeckView';
 import QuizView from './QuizView';
 import { connect } from 'react-redux';
+import { initializeDeck } from '../actions';
 
 const DeckStack = createNativeStackNavigator();
 
@@ -23,26 +24,32 @@ function ToDeck({ navigation }){
 class DeckListView extends Component {
     componentDidMount(){
         const { dispatch } = this.props
-        dispatch.initializeDeck()
+        dispatch(initializeDeck());
+        
     }
+
     render(){
         return (
-            <View>
+                
                 <DeckStack.Navigator>
+
                     <DeckStack.Screen 
-                        name='Deck1'
-                        component={DeckView}
+                        name='Deck'
+                        component={ToDeck}
                     />
-                    <DeckStack.Screen 
-                        name='Deck2'
-                        component={DeckView}
-                    />
+                        <DeckStack.Screen 
+                            name='Deck2'
+                            component={DeckView}
+                        />
+                    
                     <DeckStack.Screen 
                         name='Quiz'
                         component={QuizView}
                     />
                 </DeckStack.Navigator>
-            </View>
+                
+                
+            
             
         )
     }
