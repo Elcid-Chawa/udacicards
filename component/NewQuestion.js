@@ -6,6 +6,9 @@ class NewQuestion extends Component {
         return (
             <View>
                 <Text>Add New Question</Text>
+                <Text>Question</Text>
+                <Text>Answer</Text>
+                <Text>Submit</Text>
             </View>
         )
     }

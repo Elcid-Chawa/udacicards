@@ -5,7 +5,8 @@ class NewDeck extends Component {
     render(){
         return (
             <View>
-                <Text>Add New Deck</Text>
+                <Text>Add New Deck Title</Text>
+                <Text>Create Deck Button</Text>
             </View>
         )
     }
