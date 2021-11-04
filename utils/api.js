@@ -1,24 +1,32 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { receiveDecks } from "../actions";
-import decks from "../reducers";
-import { _getDecks } from "./_DATA";
 
-export const STORAGE_KEY = 'UdaciCards:key'
+import { _getDecks, _initDeck } from "./_DATA";
+
+
 
 export function initDeck() {
-    return Promise.all(
-        [
-            _getDecks(),
-        ]
-    ).then(([decks]) => ({
-        decks
-    })).then(() => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks)) )
+    _initDeck()
 }
 
 export function getDecks(){
-    
+    return _getDecks()
+}
+
+export function addNewDeck({title, key}){
+    return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
+        [key]: {
+            title: title,
+            questions: []
+        }
+    }))
 }
 
 export function getDeck(){}
 export function saveDeckTitle(){}
-export function addCardToDeck(){}
+export function addCardToDeck({ question, answer, key}){
+    return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
+        [key]: {
+            
+        }
+    }))
+}
