@@ -1,3 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
+export const STORAGE_KEY = 'UdaciCards:key'
+
 let decks = {
     React: {
       title: 'React',
@@ -23,8 +27,10 @@ let decks = {
     }
   }
 
+  export function _initDeck(){
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
+  }
+
   export function _getDecks() {
-      return new Promise((res, rej)=> {
-          setTimeout(() => res({...decks}), 1000)
-      });
+    return AsyncStorage.getItem(STORAGE_KEY) 
   }
