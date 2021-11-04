@@ -26,12 +26,9 @@ function ToQuiz({ navigation }){
 class DeckView extends Component {
     render(){
         return (
-            <View>
-                <QuizStack.Navigator>
-                    <QuizStack.Screen name="Quiz1" component={ToQuiz} />
-                    
-                </QuizStack.Navigator>                
-            </View>
+            <QuizStack.Navigator>
+                <QuizStack.Screen name="Quiz1" component={ToQuiz} />
+            </QuizStack.Navigator>                
         )
     }
 }
