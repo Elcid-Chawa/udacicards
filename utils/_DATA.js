@@ -27,10 +27,40 @@ let decks = {
     }
   }
 
-  export function _initDeck(){
-    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
+  export function _getDecks() {
+    return new Promise((res, rej) => {
+      setTimeout(() => res({...decks}), 1000);
+    })
   }
 
-  export function _getDecks() {
-    return AsyncStorage.getItem(STORAGE_KEY) 
+  export function _addDeck(entry){
+    return new Promise((res, rej) => {
+      setTimeout(() => {
+        decks = {
+          ...decks,
+          [entry]: {
+            title: entry,
+            questions: []
+          }
+        };
+
+        res(decks[entry]);
+      }, 1000);
+    });
+  }
+
+  export function _deleteDeck(key){
+    return new Promise((res, rej) => {
+      setTimeout (() => {
+        decks[key] = {};
+        delete decks[key];
+        res(decks);
+      }, 1000);
+      
+    });
+  }
+
+  export function defaultDeck(){
+    return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks))
+      .then(() => decks)
   }

@@ -5,7 +5,7 @@ function decks (state = {}, action){
         case RECEIVE_DECKS :
             return {
                 ...state,
-                ...action.entries
+                ...action.decks
             }
 
         case ADD_DECK:
