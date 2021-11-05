@@ -1,22 +1,26 @@
 import React, {Component} from 'react'
-import {View, Text, Button, TouchableOpacity} from 'react-native';
+import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import QuizView from './QuizView';
+import { connect } from 'react-redux';
 
 const QuizStack =  createNativeStackNavigator();
 
-function ToQuiz({ navigation }){
+function Deck({ navigation, title, noOfCards }){
     return (
-        <View>
-            <Text>Deck View Title</Text>
-                <Text>Number of Cards in Deck</Text>
-                <TouchableOpacity 
-                    onPress={() => navigation.navigate('Quiz')}
-                >
-                    <Text>Quiz</Text>
-                </TouchableOpacity>
-                <Text>Add Question</Text>
-                <Text>+++++++++++++++</Text>
+        <View style={styles.item}>
+            <Text style={styles.heading}>{title}</Text>
+            <Text>{noOfCards === 1 ? noOfCards + " card" : noOfCards + " cards"}</Text>
+            <Button title="Add card" />
+            
+            <TouchableOpacity 
+                onPress={() => navigation.navigate('Quiz', {deckKey: title})}
+                style={{backgroundColor: 'black', borderRadius: 5}}
+            >
+                <Text style={{color: 'white'}}>Start Quiz</Text>
+            </TouchableOpacity>
+                
+            <Text>+++++++++++++++</Text>
             
         </View>
     )
@@ -25,13 +29,51 @@ function ToQuiz({ navigation }){
 
 class DeckView extends Component {
     render(){
+        const { navigation, title, noOfCards } = this.props;
+        console.log(this.props)
         return (
-            <QuizStack.Navigator>
-                <QuizStack.Screen name="Quiz1" component={ToQuiz} />
-            </QuizStack.Navigator>                
+            <View style={styles.container}>
+                <Deck 
+                navigation={navigation} 
+                title={title}
+                noOfCards={noOfCards} 
+                />
+            </View>                
         )
     }
 }
 
-export default DeckView;
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 5,
+    },
+    item: {
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+
+    },
+    heading: {
+        fontSize: 24,
+        fontFamily: "Google Sans"
+    },
+    subHeading: {
+        fontSize: 12,
+        color: 'gray'
+    }
+})
+
+function mapStateToProps(decks, { navigation, route }){
+    const title = route.params.title
+    
+    
+    return {
+        decks,
+        title: decks[title].title,
+        noOfCards: decks[title].questions.length,
+    }
+}
+
+export default connect(mapStateToProps)(DeckView);
 

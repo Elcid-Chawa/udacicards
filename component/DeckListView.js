@@ -1,65 +1,93 @@
-import React, {Component} from 'react'
-import {View, Button, Text} from 'react-native';
+import React, { Component } from 'react'
+import {View, Button, Text, StyleSheet} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DeckView from './DeckView';
-import QuizView from './QuizView';
 import { connect } from 'react-redux';
-import { initializeDeck } from '../actions';
+import { initializeDeck, receiveDecks } from '../actions';
+import { STORAGE_KEY } from '../utils/_DATA';
+import DeckView from './DeckView';
+import { getDecks } from '../utils/api';
+import decks from '../reducers';
 
 const DeckStack = createNativeStackNavigator();
 
-function ToDeck({ navigation }){
+function ToDeck({navigation, title, deck}){
     return (
-        <View>
-            <TouchableOpacity 
-                onPress={() => navigation.navigate('Deck2')}
-            >
-                <Text>Deck Name</Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity 
+            onPress={() => navigation.navigate('Deck', {title: title})}
+        >
+            <Text>-----------------------------</Text>
+            <Text style={styles.heading}>{title}</Text>
+            <Text style={styles.subHeading}>
+                {deck.questions.length === 1 
+                ? deck.questions.length + " card" 
+                : deck.questions.length + " cards"} 
+            </Text>
+            <Text>-----------------------------</Text>
+        </TouchableOpacity>
+       
     )
 }
 
 class DeckListView extends Component {
+
     componentDidMount(){
-        const { dispatch } = this.props
-        dispatch(initializeDeck());
+        const { dispatch } = this.props;
+        getDecks()
+            .then((decks) => dispatch(receiveDecks(decks)));
         
     }
-
+        
     render(){
+        const { navigation, decks } = this.props
+        console.log(this.props)
+        
         return (
-                
-                <DeckStack.Navigator>
-
-                    <DeckStack.Screen 
-                        name='Deck'
-                        component={ToDeck}
-                    />
-                        <DeckStack.Screen 
-                            name='Deck2'
-                            component={DeckView}
-                        />
-                    
-                    <DeckStack.Screen 
-                        name='Quiz'
-                        component={QuizView}
-                    />
-                </DeckStack.Navigator>
-                
-                
-            
-            
+            <View style={styles.container}>
+                { decks !== {} 
+                    ? Object.keys(decks).map((deck) => 
+                                    (<View key={deck} style={styles.item}>
+                                        <ToDeck 
+                                        navigation={navigation} 
+                                        
+                                        title={decks[deck].title}
+                                        deck={decks[deck]} 
+                                        />
+                                        </View>
+                                    )) 
+                    : <Text>No deck found. Add New Deck.</Text>
+                }
+            </View>
         )
     }
 }
 
-function mapStateToProps({decks}){
-    return{
+function mapStateToProps(decks) {
+    return {
         decks
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 5,
+    },
+    item: {
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+
+    },
+    heading: {
+        fontSize: 24,
+        fontFamily: "Google Sans"
+    },
+    subHeading: {
+        fontSize: 12,
+        color: 'gray'
+    }
+})
 
 export default connect(mapStateToProps)(DeckListView);
 
