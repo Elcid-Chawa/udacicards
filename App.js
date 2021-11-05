@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component } from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -21,31 +21,33 @@ const Tabs = Platform.OS === 'ios'
   ? createBottomTabNavigator()
   : createMaterialTopTabNavigator()
 
-class  App extends Component {
 
+const RootView = ()  => {
+  return (<Tabs.Navigator>
+            <Tabs.Screen 
+            name="Desks" 
+            component={DeckListView}
+            />
+            <Tabs.Screen name="Add Deck" component={NewDeck} />
+          </Tabs.Navigator>
+          )
+}
+
+class  App extends Component {
+ 
   render() {
     return (
       <Provider store={createStore(reducer, middleware)}>
+        
         <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Decks"
-            screenOptions={() => ({
-              headerStyle: {
-                backgroundColor: 'tomato',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            })} 
-          >
-            <Stack.Screen name="Decks" component={DeckListView} />
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={RootView} options={{headerShown: false}} />
             <Stack.Screen name="Deck" component={DeckView} />
-            <Stack.Screen name="Add Deck" component={NewDeck} />
             <Stack.Screen name="Quiz" component={QuizView} />
             <Stack.Screen name = "Add Question" component={NewQuestion} />
           </Stack.Navigator>
         </NavigationContainer>
+        
       </Provider>
       
     );
