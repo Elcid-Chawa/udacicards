@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import {View, Button, Text, StyleSheet} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { connect } from 'react-redux';
-import { initializeDeck, receiveDecks } from '../actions';
-import { STORAGE_KEY } from '../utils/_DATA';
-import DeckView from './DeckView';
-import { getDecks } from '../utils/api';
-import decks from '../reducers';
-
-const DeckStack = createNativeStackNavigator();
+import {  receiveDecks } from '../actions';
+import { initializeDecks } from '../utils/api';
 
 function ToDeck({navigation, title, deck}){
     return (
@@ -33,7 +27,7 @@ class DeckListView extends Component {
 
     componentDidMount(){
         const { dispatch } = this.props;
-        getDecks()
+        initializeDecks()
             .then((decks) => dispatch(receiveDecks(decks)));
         
     }
