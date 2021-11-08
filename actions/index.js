@@ -1,5 +1,4 @@
-import decks from "../reducers";
-import { getDecks, _addNewDeck } from "../utils/api";
+import { _addNewDeck } from "../utils/api";
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
