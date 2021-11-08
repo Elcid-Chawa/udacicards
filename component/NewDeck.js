@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {View, Text, Button, TextInput, Keyboard} from 'react-native';
 import { connect } from 'react-redux';
-import { addNewDeck } from '../actions';
+import { addDeck } from '../actions';
+import { _addNewDeck } from '../utils/api';
 
 class NewDeck extends Component {
     state = {
@@ -17,8 +18,19 @@ class NewDeck extends Component {
     }
 
     submit = () => {
-        const deck = this.state;
-        this.props.dispatch(addNewDeck(deck.title));
+        const { title } = this.state;
+        const { dispatch } = this.props;
+        _addNewDeck(title)
+            .then( dispatch(
+                    addDeck({
+                                [title]: {
+                                    title: title,
+                                    questions: []
+                                }
+                    })
+                )
+            );
+
         Keyboard.dismiss();
         this.props.navigation.goBack()
         this.setState(() => ({
@@ -45,6 +57,11 @@ class NewDeck extends Component {
     }
 }
 
+function mapStateToProps (decks){
+    return {
+        decks
+    }
+}
 
-export default connect()(NewDeck);
+export default connect(mapStateToProps)(NewDeck);
 
