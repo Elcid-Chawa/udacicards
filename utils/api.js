@@ -2,6 +2,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { _getDecks, STORAGE_KEY, defaultDeck } from "./_DATA";
 
+export function initializeDecks(){
+    return defaultDeck();
+}
+
 export function getDecks(){
     return AsyncStorage.getItem(STORAGE_KEY)
     .then(defaultDeck) 
