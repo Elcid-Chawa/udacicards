@@ -14,6 +14,7 @@ import { createStore } from 'redux';
 import reducer from './reducers';
 import middleware from './middleware';
 import QuizView from './component/QuizView';
+import { setLocalNotifcations } from './utils/helpers';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,10 @@ const RootView = ()  => {
 }
 
 class  App extends Component {
+
+  componentDidMount(){
+    setLocalNotifcations()
+  }
  
   render() {
     return (
