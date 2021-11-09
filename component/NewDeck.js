@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {View, Text, Button, TextInput, Keyboard} from 'react-native';
+import {View, Text, Button, TextInput, Keyboard, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
 import { saveDeckTitle } from '../utils/api';
+import { styles } from '../utils/helpers';
 
 class NewDeck extends Component {
     state = {
@@ -44,14 +45,14 @@ class NewDeck extends Component {
         const { title } = this.state;
         return (
             <View>
-                <Text>What is the Title of your new deck</Text>
+                <Text style={styles.heading}>What is the Title of your new deck</Text>
                 <TextInput
                     placeholder="Enter Deck Title"
                     value={title}
                     onChangeText={this.handleEntry}
                 >
                 </TextInput>
-                <Button title="Submit" onPress={this.submit} />
+                <Button title="Create Deck" onPress={this.submit} />
             </View>
         )
     }

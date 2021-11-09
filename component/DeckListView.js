@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontSize: 24,
-        fontFamily: "Google Sans"
     },
     subHeading: {
         fontSize: 12,
