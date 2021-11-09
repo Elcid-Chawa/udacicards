@@ -8,7 +8,7 @@ In this project, will build a mobile application (Android or iOS - or both) that
 - Clone the project from github repo
 - run 
 ```
-yarn install or npm install
+yarn install 
 ```
 
 ### Usage
