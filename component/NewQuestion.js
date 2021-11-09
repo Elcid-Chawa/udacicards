@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, TextInput, Button, Keyboard} from 'react-native';
+import {View, Text, TextInput, Button, Keyboard, Alert} from 'react-native';
 import { connect } from 'react-redux';
 import { addCard } from '../actions';
 import { addCardToDeck } from '../utils/api';
@@ -36,7 +36,7 @@ class NewQuestion extends Component {
             answer: answer
             }
 
-        addCardToDeck(deck.title, card);
+        if((card.question !== "") && (card.answer !== "")){addCardToDeck(deck.title, card);
         dispatch(addCard(deck, card));
 
         Keyboard.dismiss();
@@ -46,7 +46,9 @@ class NewQuestion extends Component {
         this.setState(() => ({
             question: "",
             answer: "",
-        }))
+        }))} else {
+            Alert.alert("Please fill all fields.")
+        }
     }
  
     render(){
