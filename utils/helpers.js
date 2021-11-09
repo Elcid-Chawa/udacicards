@@ -22,6 +22,14 @@ export const styles = StyleSheet.create({
     subHeading: {
         fontSize: 12,
         color: 'gray'
+    },
+    textBox: {
+        borderRadius: 3,
+        borderColor: 'black',
+        
+        marginTop: 10,
+        marginBottom: 10
+
     }
 })
 

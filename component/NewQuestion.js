@@ -3,6 +3,7 @@ import {View, Text, TextInput, Button, Keyboard, Alert} from 'react-native';
 import { connect } from 'react-redux';
 import { addCard } from '../actions';
 import { addCardToDeck } from '../utils/api';
+import { styles } from '../utils/helpers';
 
 class NewQuestion extends Component {
 
@@ -54,17 +55,19 @@ class NewQuestion extends Component {
     render(){
         const { question, answer } = this.state;
         return (
-            <View>
+            <View style={styles.item}>
                 <Text>Question</Text>
                 <TextInput 
                     placeholder="Add New Question"
                     value={question}
                     onChangeText={this.handleQuestion}
+                    style={styles.textBox}
                 />
                 <TextInput 
                     placeholder="Add Answer"
                     value={answer}
                     onChangeText={this.handleAnswer}
+                    style={styles.textBox}
                 />
                 <Button title="Submit" onPress={this.submit} />
             </View>

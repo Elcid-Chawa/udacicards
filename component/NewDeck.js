@@ -48,12 +48,13 @@ class NewDeck extends Component {
         
         const { title } = this.state;
         return (
-            <View>
+            <View style={styles.item}>
                 <Text style={styles.heading}>What is the Title of your new deck</Text>
                 <TextInput
                     placeholder="Enter Deck Title"
                     value={title}
                     onChangeText={this.handleEntry}
+                    style={styles.textBox}
                 >
                 </TextInput>
                 <Button title="Create Deck" onPress={this.submit} />

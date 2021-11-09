@@ -1,5 +1,11 @@
 import React, {Component} from 'react'
-import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
+import { 
+    View, 
+    Text, 
+    Button, 
+    TouchableOpacity, 
+    Animated
+} from 'react-native';
 import { connect } from 'react-redux';
 import {styles } from '../utils/helpers'
 
@@ -25,8 +31,19 @@ function Deck({ navigation, title, noOfCards }){
 
 
 class DeckView extends Component {
+
+    state = {
+        opacity: new Animated.Value(0)
+    }
+
+    componentDidMount(){
+        const {opacity} = this.state
+        Animated.timing(opacity, {toValue: 1}, 1000).start()
+    }
+
     render(){
         const { navigation, title, noOfCards } = this.props;
+        const { opacity } = this.state;
         console.log(this.props)
         return (
             <View style={styles.container}>
