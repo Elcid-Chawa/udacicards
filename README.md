@@ -31,3 +31,31 @@ npm install @react-navigation/native @react-navigation/native-stack
 yarn add react-native-tab-view
 
 npm install @react-navigation/material-top-tabs @react-navigation/bottom-tabs
+
+### Platform.
+
+ This application worked well on ios device using the expo app installed on it.
+
+ 
+ ~[primary](img/primary_page.PNG)
+ Primary View
+
+ ![deck](img/deck_view.JPG)
+ Deck View
+
+ ![add_card](img/add_card.PNG)
+
+ ![quiz](img/quiz_view.JPG)
+ Quiz View
+
+ ![score](img/score.JPG)
+ Score
+
+ ![add_deck](img/add_deck.JPG)
+ New Deck
+
+ ![deck_ added](img/deck_added.PNG)
+ Deck Added
+
+
+

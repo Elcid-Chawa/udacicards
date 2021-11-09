@@ -38,13 +38,13 @@ class DeckView extends Component {
 
     componentDidMount(){
         const {opacity} = this.state
-        Animated.timing(opacity, {toValue: 1}, 1000).start()
+        Animated.timing(opacity, {toValue: 1, duration: 1000 }).start()
     }
 
     render(){
         const { navigation, title, noOfCards } = this.props;
         const { opacity } = this.state;
-        console.log(this.props)
+        
         return (
             <View style={styles.container}>
                 <Deck 
