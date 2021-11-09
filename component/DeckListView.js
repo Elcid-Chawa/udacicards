@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Button, Text, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import {  receiveDecks } from '../actions';
