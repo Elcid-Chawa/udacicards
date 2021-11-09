@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
+import {styles } from '../utils/helpers'
 
 function Deck({ navigation, title, noOfCards }){
     return (
@@ -38,27 +39,6 @@ class DeckView extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 5,
-    },
-    item: {
-        padding: 10,
-        alignItems: 'center',
-        justifyContent: 'center'
-
-    },
-    heading: {
-        fontSize: 24,
-        fontFamily: "Google Sans"
-    },
-    subHeading: {
-        fontSize: 12,
-        color: 'gray'
-    }
-})
 
 function mapStateToProps(decks, { navigation, route }){
     const title = route.params.title
