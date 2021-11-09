@@ -2,7 +2,8 @@ import { _addNewDeck } from "../utils/api";
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
-export const GET_CARDS = 'GET_CARDS'
+export const GET_CARDS = 'GET_CARDS';
+export const ADD_CARD = 'ADD_CARD';
 
 export function receiveDecks(decks){
     return {
@@ -18,10 +19,11 @@ export function addDeck (deck){
     }
 }
 
-export function addNewDeck(deck){
-    return (dispatch) => {
-        return _addNewDeck(deck).then(() => {
-                dispatch(addDeck(deck));
-        });
+export function addCard (deck, question, answer){
+    return {
+        type: ADD_CARD,
+        deck,
+        question,
+        answer,
     }
 }

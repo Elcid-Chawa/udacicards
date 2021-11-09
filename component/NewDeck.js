@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View, Text, Button, TextInput, Keyboard} from 'react-native';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
-import { _addNewDeck } from '../utils/api';
+import { saveDeckTitle } from '../utils/api';
 
 class NewDeck extends Component {
     state = {
@@ -20,7 +20,7 @@ class NewDeck extends Component {
     submit = () => {
         const { title } = this.state;
         const { dispatch } = this.props;
-        _addNewDeck(title)
+        saveDeckTitle(title)
             .then( dispatch(
                     addDeck({
                                 [title]: {

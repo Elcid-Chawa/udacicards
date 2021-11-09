@@ -44,7 +44,7 @@ class  App extends Component {
             <Stack.Screen name="Home" component={RootView} options={{headerShown: false}} />
             <Stack.Screen name="Deck" component={DeckView} />
             <Stack.Screen name="Quiz" component={QuizView} />
-            <Stack.Screen name = "Add Question" component={NewQuestion} />
+            <Stack.Screen name = "Add Card" component={NewQuestion} />
           </Stack.Navigator>
         </NavigationContainer>
         

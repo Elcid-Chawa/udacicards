@@ -1,17 +1,13 @@
 import React, {Component} from 'react'
 import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import QuizView from './QuizView';
 import { connect } from 'react-redux';
-
-const QuizStack =  createNativeStackNavigator();
 
 function Deck({ navigation, title, noOfCards }){
     return (
         <View style={styles.item}>
             <Text style={styles.heading}>{title}</Text>
             <Text>{noOfCards === 1 ? noOfCards + " card" : noOfCards + " cards"}</Text>
-            <Button title="Add card" />
+            <Button title="Add card" onPress={() => navigation.navigate('Add Card', {deckKey: title})} />
             
             <TouchableOpacity 
                 onPress={() => navigation.navigate('Quiz', {deckKey: title})}

@@ -8,10 +8,9 @@ export function initializeDecks(){
 
 export function getDecks(){
     return AsyncStorage.getItem(STORAGE_KEY)
-    .then(defaultDeck) 
 }
 
-export function _addNewDeck(key){
+export function saveDeckTitle(key){
     return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
         [key]: {
             title: key,
@@ -31,11 +30,17 @@ export function removeDeck(key){
         } )
 }
 
-export function getDeck(){}
-export function saveDeckTitle(){}
-export function addCardToDeck({ question, answer, key}){
+export function addCardToDeck(title, card ){
+    let d
+     getDecks().then((value) => {
+        const deck = JSON.parse(value);
+        console.log(deck[title])
+        d = deck[title]
+     } )
+    
     return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
-        [key]: {
+        [title]: {
+            ...d,
             
         }
     }))
