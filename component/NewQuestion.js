@@ -36,8 +36,8 @@ class NewQuestion extends Component {
             answer: answer
             }
 
-        addCardToDeck(deck.title, card)
-            .then((d) => console.log("ok ", d));
+        addCardToDeck(deck.title, card);
+        dispatch(addCard(deck, card));
 
         Keyboard.dismiss();
 

@@ -31,17 +31,13 @@ export function removeDeck(key){
 }
 
 export function addCardToDeck(title, card ){
-    let d
-     getDecks().then((value) => {
+    getDecks().then((value) => {
         const deck = JSON.parse(value);
-        console.log(deck[title])
-        d = deck[title]
-     } )
-    
-    return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
-        [title]: {
-            ...d,
-            
-        }
-    }))
+        return AsyncStorage.mergeItem( STORAGE_KEY, JSON.stringify({
+            [title]: {
+                ...deck[title],
+                questions: deck[title].questions.concat(card)
+            }
+        }))
+    })      
 }
