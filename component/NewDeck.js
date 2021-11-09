@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Button, TextInput, Keyboard, StyleSheet} from 'react-native';
+import {View, Text, Button, TextInput, Keyboard, StyleSheet, Alert} from 'react-native';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
 import { saveDeckTitle } from '../utils/api';
@@ -21,22 +21,26 @@ class NewDeck extends Component {
     submit = () => {
         const { title } = this.state;
         const { dispatch } = this.props;
-        saveDeckTitle(title)
-            .then( dispatch(
-                    addDeck({
-                                [title]: {
-                                    title: title,
-                                    questions: []
-                                }
-                    })
-                )
-            );
+        if(title !== ""){
+            saveDeckTitle(title)
+                .then( dispatch(
+                        addDeck({
+                                    [title]: {
+                                        title: title,
+                                        questions: []
+                                    }
+                        })
+                    )
+                );
 
-        Keyboard.dismiss();
-        this.props.navigation.goBack()
-        this.setState(() => ({
-            title: ""
-        }))
+            Keyboard.dismiss();
+            this.props.navigation.goBack()
+            this.setState(() => ({
+                title: ""
+            }))
+        } else {
+            return Alert.alert("Please Enter a Title.")
+        }
 
     }
 
